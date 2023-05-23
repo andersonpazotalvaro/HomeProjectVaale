@@ -1,0 +1,15 @@
+rootProject.name = 'home'
+
+include ':aplicacion'
+include ':dominio'
+include ':infraestructura'
+
+include ':comun',
+        ':comun:comun-aplicacion',
+        ':comun:comun-dominio',
+        ':comun:comun-infraestructura'
+
+project(':comun').projectDir = new File('../comun')
+project(':comun:comun-aplicacion').projectDir = new File('../comun/comun-aplicacion')
+project(':comun:comun-dominio').projectDir = new File('../comun/comun-dominio')
+project(':comun:comun-infraestructura').projectDir = new File('../comun/comun-infraestructura')

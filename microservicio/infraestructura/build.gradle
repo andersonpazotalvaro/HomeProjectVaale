@@ -1,0 +1,39 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
+
+plugins {
+	id 'org.jetbrains.kotlin.jvm' version '1.6.21'
+	//id 'org.jetbrains.kotlin.plugin.spring' version '1.6.21'
+}
+
+group = 'com.microservicio.home'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation project.ext.springbootstarterweb
+	//testImplementation project.ext.springbootstartertest
+	implementation project.ext.kotlin
+	implementation project(':dominio')
+	implementation project(':comun:comun-infraestructura')
+	runtimeOnly project.ext.db
+	implementation project.ext.gson
+	implementation group: 'commons-fileupload', name: 'commons-fileupload', version: '1.4'
+	implementation project.ext.jpa
+
+	}
+
+tasks.withType(KotlinCompile) {
+	kotlinOptions {
+		freeCompilerArgs = ['-Xjsr305=strict']
+		jvmTarget = '11'
+	}
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}

@@ -1,0 +1,12 @@
+allprojects {
+
+	repositories {
+		mavenCentral()
+	}
+
+	// Kotlin
+	project.ext.kotlin = [ 'org.jetbrains.kotlin:kotlin-reflect' ]
+
+}
+
+

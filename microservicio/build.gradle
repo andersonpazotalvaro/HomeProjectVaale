@@ -1,0 +1,71 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
+
+plugins {
+	id 'org.springframework.boot' version '2.7.12'
+	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+	id 'org.jetbrains.kotlin.jvm' version '1.6.21'
+	id 'org.jetbrains.kotlin.plugin.spring' version '1.6.21'
+}
+
+group = 'com.microservicio.home'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+allprojects {
+
+	repositories {
+		mavenCentral()
+	}
+
+	// Spring Devtools
+	project.ext.springbootdevtools = ["org.springframework.boot:spring-boot-devtools:${springBootVersion}"]
+
+	// Spring Web
+	project.ext.springbootstarterweb = ["org.springframework.boot:spring-boot-starter-web:${springBootVersion}"]
+
+	// Spring Test
+	project.ext.springbootstartertest = ["org.springframework.boot:spring-boot-starter-test:${springBootVersion}"]
+
+	// Kotlin
+	project.ext.kotlin = [ 'org.jetbrains.kotlin:kotlin-reflect' ]
+
+	// Database
+	//project.ext.db = [ 'org.postgresql:postgresql' ]
+
+	//Database 'mysql:mysql-connector-java'
+	project.ext.db = [ 'mysql:mysql-connector-java:8.0.27'  ]
+
+	// Gson
+	project.ext.gson = [ 'com.google.code.gson:gson:2.9.1' ]
+
+	//Opencsv
+	project.ext.opencsv = [ 'com.opencsv:opencsv:5.7.1' ]
+
+	//JPA
+	project.ext.jpa = [ 'org.springframework.boot:spring-boot-starter-data-jpa:2.5.0' ]
+
+	// Springboot
+	project.ext.springboottest = [ 'org.springframework.boot:spring-boot-starter-test' ]
+}
+
+dependencies {
+	implementation project.ext.springbootstarterweb
+	implementation project.ext.springbootstartertest
+	implementation project.ext.springbootdevtools
+	implementation project.ext.kotlin
+
+	implementation project.ext.db
+}
+
+tasks.withType(KotlinCompile) {
+	kotlinOptions {
+		freeCompilerArgs = ['-Xjsr305=strict']
+		jvmTarget = '11'
+	}
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
+
