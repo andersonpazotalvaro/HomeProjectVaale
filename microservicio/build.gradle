@@ -54,7 +54,7 @@ dependencies {
 	implementation project.ext.springbootstartertest
 	implementation project.ext.springbootdevtools
 	implementation project.ext.kotlin
-
+	implementation project(':infraestructura')
 	implementation project.ext.db
 }
 

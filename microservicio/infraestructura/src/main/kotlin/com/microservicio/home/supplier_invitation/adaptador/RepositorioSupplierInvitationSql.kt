@@ -7,7 +7,7 @@ import com.microservicio.home.supplier_invitation.puerto.RepositorioSupplierInvi
 import org.springframework.stereotype.Repository
 
 @Repository
-class RepositorioSupplierInvitationSql(
+open class RepositorioSupplierInvitationSql(
     private val mapperSupplierInvitation: MapperSupplierInvitation,
     private val repositorioSupplierInvitationJpa: RepositorioSupplierInvitationJpa
 ) : RepositorioSupplierInvitation  {

@@ -20,6 +20,7 @@ dependencies {
 	implementation project.ext.kotlin
 	implementation project(':dominio')
 	implementation project(':comun:comun-infraestructura')
+	implementation project(':aplicacion')
 	runtimeOnly project.ext.db
 	implementation project.ext.gson
 	implementation group: 'commons-fileupload', name: 'commons-fileupload', version: '1.4'

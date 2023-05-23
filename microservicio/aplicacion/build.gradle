@@ -18,7 +18,7 @@ dependencies {
 	implementation project.ext.springbootstarterweb
 	implementation project.ext.opencsv
 	implementation project(':comun:comun-aplicacion')
-	implementation project(':infraestructura')
+	//implementation project(':infraestructura')
 	implementation project(':dominio')
 }
 

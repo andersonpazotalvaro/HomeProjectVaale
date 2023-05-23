@@ -20,6 +20,6 @@ class EntidadSupplierInvitation(
 
 ) {
 
-    constructor(supplierId: Int?, commerceCellPhone: String?) : this(0, supplierId, commerceCellPhone)
+    constructor(supplierId: Int?, commerceCellPhone: String?, entryDate: Timestamp?) : this(0, supplierId, commerceCellPhone, entryDate)
 
 }

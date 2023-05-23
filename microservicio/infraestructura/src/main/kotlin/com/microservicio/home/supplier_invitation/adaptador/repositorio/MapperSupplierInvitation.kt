@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component
 class MapperSupplierInvitation {
 
     fun crearEntidad(supplierInvitation : SupplierInvitation): EntidadSupplierInvitation {
-        return EntidadSupplierInvitation(supplierInvitation.supplierId,supplierInvitation.commerceCellPhone  )
+        return EntidadSupplierInvitation(supplierInvitation.supplierId,supplierInvitation.commerceCellPhone, supplierInvitation.entryDate  )
     }
 
     fun convertirListaDominioAEntidad(supplierInvitation: List<SupplierInvitation>): List<EntidadSupplierInvitation>{
