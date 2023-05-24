@@ -1,7 +1,9 @@
 package com.microservicio.home.supplier_invitation.controlador
 
+import com.microservicio.home.supplier_invitation.DtoSupplierInvitation
 import com.microservicio.home.supplier_invitation.manejador.ManejadorSupplierInvitation
 import org.apache.commons.io.FileUtils
+import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -22,7 +24,7 @@ class ControladorSupplierInvitation (
 
     @CrossOrigin(origins = ["*"], allowedHeaders = ["*"])
     @PostMapping(consumes = [MediaType.MULTIPART_FORM_DATA_VALUE], value = ["/invitation/csv"])
-    fun enviar(@RequestPart("file") file: MultipartFile): ResponseEntity.BodyBuilder {
+    fun enviar(@RequestPart("file") file: MultipartFile): ResponseEntity<List<DtoSupplierInvitation>> {
         val fileToDelete = File(root.resolve(file.originalFilename).toString())
         FileUtils.cleanDirectory(root.toFile())
 
@@ -31,13 +33,13 @@ class ControladorSupplierInvitation (
 
             val fileTemporal = File(root.resolve(file.originalFilename).toString())
 
-            val mensaje = manejadorSupplierInvitation.guardarSupplierInvitation(fileTemporal)
+            val listDto = manejadorSupplierInvitation.guardarSupplierInvitation(fileTemporal)
             deleteFile(root.resolve(file.originalFilename).toString())
-            return ResponseEntity.ok()
+            return ResponseEntity(listDto, HttpStatus.OK)
         } catch (e: Exception) {
             deleteFile(root.resolve(file.originalFilename).toString())
             FileUtils.cleanDirectory(root.toFile())
-            return  ResponseEntity.badRequest()
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null)
         }
 
     }

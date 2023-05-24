@@ -1,7 +1,8 @@
 package com.microservicio.home.supplier_invitation.entidad
 
+import com.microservicio.home.supplier.entidad.EntidadSupplier
+import com.microservicio.home.supplier.modelo.Supplier
 import java.sql.Timestamp
-import java.time.LocalDateTime
 import javax.persistence.*
 
 @Entity
@@ -9,17 +10,19 @@ import javax.persistence.*
 class EntidadSupplierInvitation(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
+    @Column(name="id", length = 20)
     val id: Long? = 0,
-    @Column(name="supplier_id")
-    var supplierId: Int? = 0,
-    @Column(name="commerce_cell_phone")
-    var commerceCellPhone: String? = "",
+
+    @ManyToOne(cascade = [])
+    @JoinColumn(name = "supplier_id")
+    val supplierId: EntidadSupplier? = null,
+    @Column(name="commerce_cell_phone", length = 256)
+    val commerceCellPhone: String? = null,
     @Column(name="entry_date")
-    var entryDate: Timestamp? = null
+    val entryDate: Timestamp? = null
 
 ) {
 
-    constructor(supplierId: Int?, commerceCellPhone: String?, entryDate: Timestamp?) : this(0, supplierId, commerceCellPhone, entryDate)
+    constructor(supplierId: EntidadSupplier?, commerceCellPhone: String?, entryDate: Timestamp?) : this(0, supplierId, commerceCellPhone, entryDate)
 
 }

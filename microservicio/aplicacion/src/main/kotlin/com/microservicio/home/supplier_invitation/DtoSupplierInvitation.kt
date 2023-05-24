@@ -1,4 +1,4 @@
-package com.microservicio.home.supplier_invitation.importarcsv
+package com.microservicio.home.supplier_invitation
 
 class DtoSupplierInvitation(
     val supplierId: String,

@@ -1,15 +1,17 @@
 package com.microservicio.home.supplier_invitation.fabrica
 
-import com.microservicio.home.supplier_invitation.importarcsv.DtoSupplierInvitation
+import com.microservicio.home.supplier_invitation.DtoSupplierInvitation
 import com.microservicio.home.supplier_invitation.modelo.SupplierInvitation
 import org.springframework.stereotype.Component
 
 @Component
-class FabricaSupplierInvitation {
+class FabricaSupplierInvitation(
+)
+{
 
     fun crear(dtoSupplierInvitation: DtoSupplierInvitation): SupplierInvitation{
         return SupplierInvitation(
-            convertirStringAInt(dtoSupplierInvitation.supplierId),
+            convertirStringALong(dtoSupplierInvitation.supplierId),
             dtoSupplierInvitation.commerceCellPhone
             )
     }
@@ -22,10 +24,10 @@ class FabricaSupplierInvitation {
         return listadomain
     }
 
-    fun convertirStringAInt(string:String):Int{
-        var res = 0
-        try {
-            res = Integer.valueOf(string)
+    fun convertirStringALong(string:String):Long{
+        var res: Long = 0
+            try {
+            res = string.toLong()
         }catch (e: Exception){
 
         }

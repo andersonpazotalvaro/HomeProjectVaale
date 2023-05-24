@@ -1,6 +1,6 @@
-package com.microservicio.home.supplier_invitation.adaptador
+package com.microservicio.home.supplier_invitation.adaptador.transaccional
 
-import com.microservicio.home.supplier_invitation.adaptador.repositorio.MapperSupplierInvitation
+import com.microservicio.home.supplier_invitation.adaptador.MapperSupplierInvitation
 import com.microservicio.home.supplier_invitation.adaptador.repositorio.RepositorioSupplierInvitationJpa
 import com.microservicio.home.supplier_invitation.modelo.SupplierInvitation
 import com.microservicio.home.supplier_invitation.puerto.RepositorioSupplierInvitation
