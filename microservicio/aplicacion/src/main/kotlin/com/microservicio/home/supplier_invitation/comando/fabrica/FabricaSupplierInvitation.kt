@@ -1,4 +1,4 @@
-package com.microservicio.home.supplier_invitation.fabrica
+package com.microservicio.home.supplier_invitation.comando.fabrica
 
 import com.microservicio.home.supplier_invitation.DtoSupplierInvitation
 import com.microservicio.home.supplier_invitation.modelo.SupplierInvitation

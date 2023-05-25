@@ -25,6 +25,4 @@ open class RepositorioSupplierSql(
         return true
     }
 
-
-
 }

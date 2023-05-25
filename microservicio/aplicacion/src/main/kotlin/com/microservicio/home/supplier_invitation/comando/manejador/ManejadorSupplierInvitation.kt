@@ -1,7 +1,7 @@
-package com.microservicio.home.supplier_invitation.manejador
+package com.microservicio.home.supplier_invitation.comando.manejador
 
-import com.microservicio.home.supplier_invitation.fabrica.FabricaSupplierInvitation
-import com.microservicio.home.supplier_invitation.importarcsv.CsvImportSupplierInvitation
+import com.microservicio.home.supplier_invitation.comando.fabrica.FabricaSupplierInvitation
+import com.microservicio.home.supplier_invitation.comando.importarcsv.CsvImportSupplierInvitation
 import com.microservicio.home.supplier_invitation.DtoSupplierInvitation
 import com.microservicio.home.supplier_invitation.servicio.GuardarSupplierInvitation
 import org.springframework.stereotype.Component
@@ -20,5 +20,9 @@ class ManejadorSupplierInvitation(
         var listDomain = this.fabricaSupplierInvitation.convertirDtoADominio(listDto)
         this.guardarSupplierInvitation.ejecutar(listDomain)
         return listDto
+    }
+
+    fun deleteFile(filename: String) {
+        this.csvImportSupplierInvitation.deleteFile(filename)
     }
 }

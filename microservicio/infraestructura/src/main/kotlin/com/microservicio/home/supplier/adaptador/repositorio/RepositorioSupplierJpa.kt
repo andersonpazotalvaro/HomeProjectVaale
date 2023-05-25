@@ -7,11 +7,4 @@ import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.query.Param
 
 interface RepositorioSupplierJpa: JpaRepository<EntidadSupplier, Long> {
-
-    @Query(
-        nativeQuery = true,
-        value = "Select * from home.supplier where id =:num"
-    )
-    fun consultarPorId(@Param("num") num: Long?): EntidadSupplier?
-
 }

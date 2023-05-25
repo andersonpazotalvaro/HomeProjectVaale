@@ -8,6 +8,4 @@ interface RepositorioSupplier {
     fun guardar(supplier: Supplier): Boolean
     fun eliminar(id : Long): Boolean
 
-
-
 }

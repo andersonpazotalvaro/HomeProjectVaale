@@ -1,7 +1,6 @@
 package com.microservicio.home.supplier_invitation.entidad
 
 import com.microservicio.home.supplier.entidad.EntidadSupplier
-import com.microservicio.home.supplier.modelo.Supplier
 import java.sql.Timestamp
 import javax.persistence.*
 
@@ -15,7 +14,7 @@ class EntidadSupplierInvitation(
 
     @ManyToOne(cascade = [])
     @JoinColumn(name = "supplier_id")
-    val supplierId: EntidadSupplier? = null,
+    val supplier: EntidadSupplier? = null,
     @Column(name="commerce_cell_phone", length = 256)
     val commerceCellPhone: String? = null,
     @Column(name="entry_date")

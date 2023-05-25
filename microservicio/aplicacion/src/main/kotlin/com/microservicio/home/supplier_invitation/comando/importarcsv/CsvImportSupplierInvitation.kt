@@ -1,4 +1,4 @@
-package com.microservicio.home.supplier_invitation.importarcsv
+package com.microservicio.home.supplier_invitation.comando.importarcsv
 
 import com.microservicio.home.supplier_invitation.DtoSupplierInvitation
 import org.springframework.stereotype.Component
@@ -6,9 +6,13 @@ import java.io.BufferedReader
 import java.io.File
 import java.io.FileReader
 import java.nio.charset.StandardCharsets
+import java.nio.file.Path
+import java.nio.file.Paths
 
 @Component
-class CsvImportSupplierInvitation {
+class CsvImportSupplierInvitation(
+    private val root: Path = Paths.get("uploads/")
+) {
 
     private fun dtoList(supplierId: String, commerceCellPhone: String): DtoSupplierInvitation {
         return DtoSupplierInvitation(supplierId,commerceCellPhone)
@@ -46,4 +50,10 @@ class CsvImportSupplierInvitation {
         return dtoList
     }
 
+    fun deleteFile(filename: String) {
+        val fileToDelete = File(root.resolve(filename).toString())
+        if (fileToDelete.exists()) {
+            fileToDelete.delete()
+        }
+    }
 }

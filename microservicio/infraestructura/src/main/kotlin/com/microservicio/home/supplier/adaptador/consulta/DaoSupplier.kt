@@ -12,14 +12,13 @@ open class DaoSupplier (
     private val repositorioSupplierJpa: RepositorioSupplierJpa
 )
 {
-     fun consultarPorId(id: Long): EntidadSupplier {
-        val entidadSupplier = this.repositorioSupplierJpa.consultarPorId(id)//.orElseThrow { NoSuchElementException("El supplier no existe") }
-         if (entidadSupplier != null){
-             //val entidad: EntidadSupplier = entidadSupplier.get()
-             return entidadSupplier
-         }else{
-             return EntidadSupplier(100,"NA", "NA", false, null)
-         }
-         //return entidadSupplier
+    open fun consultarPorId(id: Long): EntidadSupplier? {
+        try {
+            var entidadSupplier: EntidadSupplier? = this.repositorioSupplierJpa.getById(id)
+            return entidadSupplier
+        }catch (e: Exception){
+            throw Exception("El supplier con id : $id no existe")
+        }
+
     }
 }

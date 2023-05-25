@@ -1,7 +1,8 @@
 package com.microservicio.home.supplier_invitation.controlador
 
 import com.microservicio.home.supplier_invitation.DtoSupplierInvitation
-import com.microservicio.home.supplier_invitation.manejador.ManejadorSupplierInvitation
+import com.microservicio.home.supplier_invitation.comando.manejador.ManejadorSupplierInvitation
+import com.microservicio.home.supplier_invitation.modelo.DtoRespuestaGuardar
 import org.apache.commons.io.FileUtils
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
@@ -24,7 +25,7 @@ class ControladorSupplierInvitation (
 
     @CrossOrigin(origins = ["*"], allowedHeaders = ["*"])
     @PostMapping(consumes = [MediaType.MULTIPART_FORM_DATA_VALUE], value = ["/invitation/csv"])
-    fun enviar(@RequestPart("file") file: MultipartFile): ResponseEntity<List<DtoSupplierInvitation>> {
+    fun enviar(@RequestPart("file") file: MultipartFile): ResponseEntity<DtoRespuestaGuardar> {
         val fileToDelete = File(root.resolve(file.originalFilename).toString())
         FileUtils.cleanDirectory(root.toFile())
 
@@ -34,25 +35,23 @@ class ControladorSupplierInvitation (
             val fileTemporal = File(root.resolve(file.originalFilename).toString())
 
             val listDto = manejadorSupplierInvitation.guardarSupplierInvitation(fileTemporal)
-            deleteFile(root.resolve(file.originalFilename).toString())
-            return ResponseEntity(listDto, HttpStatus.OK)
+            this.manejadorSupplierInvitation.deleteFile(root.resolve(file.originalFilename).toString())
+            return ResponseEntity(DtoRespuestaGuardar(HttpStatus.OK.value(),"",listDto),HttpStatus.OK)
+            //return ResponseEntity(listDto, HttpStatus.OK)
         } catch (e: Exception) {
-            deleteFile(root.resolve(file.originalFilename).toString())
+            this.manejadorSupplierInvitation.deleteFile(root.resolve(file.originalFilename).toString())
             FileUtils.cleanDirectory(root.toFile())
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null)
+            return ResponseEntity(DtoRespuestaGuardar(HttpStatus.NOT_FOUND.value(),e.message,null),HttpStatus.NOT_FOUND)
         }
 
     }
 
-    @GetMapping("/hello")
-    fun helloWorld(): String {
-        return "Hola mundo"
-    }
 
-    fun deleteFile(filename: String) {
-        val fileToDelete = File(root.resolve(filename).toString())
-        if (fileToDelete.exists()) {
-            fileToDelete.delete()
-        }
-    }
+    /*fun crearResponse(httpStatus: HttpStatus, any: Any):ResponseEntity<Any>{
+        val apiResponse = mapOf(
+            "code" to httpStatus.value(),
+            "message" to httpStatus.name
+        )
+    }*/
+
 }
