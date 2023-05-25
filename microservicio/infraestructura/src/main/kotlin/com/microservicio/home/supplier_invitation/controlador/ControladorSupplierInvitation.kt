@@ -1,8 +1,9 @@
 package com.microservicio.home.supplier_invitation.controlador
 
-import com.microservicio.home.supplier_invitation.DtoSupplierInvitation
 import com.microservicio.home.supplier_invitation.comando.manejador.ManejadorSupplierInvitation
-import com.microservicio.home.supplier_invitation.modelo.DtoRespuestaGuardar
+import com.microservicio.home.supplier_invitation.consulta.ConsultaTodosSupplierInvitation
+import com.microservicio.home.supplier_invitation.modelo.Dto.DtoRespuestaConsultar
+import com.microservicio.home.supplier_invitation.modelo.Dto.DtoRespuestaGuardar
 import org.apache.commons.io.FileUtils
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
@@ -16,10 +17,10 @@ import java.nio.file.Path
 
 
 @RestController
-//@RequestMapping("/home")
 class ControladorSupplierInvitation (
     private val root: Path = Paths.get("uploads/"),
-    private val manejadorSupplierInvitation: ManejadorSupplierInvitation
+    private val manejadorSupplierInvitation: ManejadorSupplierInvitation,
+    private val consultaTodosSupplierInvitation: ConsultaTodosSupplierInvitation
 )
 {
 
@@ -37,7 +38,6 @@ class ControladorSupplierInvitation (
             val listDto = manejadorSupplierInvitation.guardarSupplierInvitation(fileTemporal)
             this.manejadorSupplierInvitation.deleteFile(root.resolve(file.originalFilename).toString())
             return ResponseEntity(DtoRespuestaGuardar(HttpStatus.OK.value(),"",listDto),HttpStatus.OK)
-            //return ResponseEntity(listDto, HttpStatus.OK)
         } catch (e: Exception) {
             this.manejadorSupplierInvitation.deleteFile(root.resolve(file.originalFilename).toString())
             FileUtils.cleanDirectory(root.toFile())
@@ -45,13 +45,18 @@ class ControladorSupplierInvitation (
         }
 
     }
+    @CrossOrigin(origins = ["*"], allowedHeaders = ["*"])
+    @GetMapping(value = ["/invitation"])
+    fun consultar(): ResponseEntity<DtoRespuestaConsultar>{
+        try {
+            return ResponseEntity(this.consultaTodosSupplierInvitation.consultarSupplierInvitation(HttpStatus.OK.value(),""),HttpStatus.OK)
+        }catch (e: Exception){
+            return ResponseEntity(this.consultaTodosSupplierInvitation.consultarSupplierInvitation(HttpStatus.NOT_FOUND.value(),e.message),HttpStatus.NOT_FOUND)
+        }
+
+    }
 
 
-    /*fun crearResponse(httpStatus: HttpStatus, any: Any):ResponseEntity<Any>{
-        val apiResponse = mapOf(
-            "code" to httpStatus.value(),
-            "message" to httpStatus.name
-        )
-    }*/
+
 
 }

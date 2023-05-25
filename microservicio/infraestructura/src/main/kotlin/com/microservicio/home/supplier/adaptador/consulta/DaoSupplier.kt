@@ -1,9 +1,7 @@
 package com.microservicio.home.supplier.adaptador.consulta
 
-import com.microservicio.home.supplier.adaptador.MapperSupplier
 import com.microservicio.home.supplier.adaptador.repositorio.RepositorioSupplierJpa
 import com.microservicio.home.supplier.entidad.EntidadSupplier
-import com.microservicio.home.supplier.modelo.Supplier
 import org.springframework.stereotype.Repository
 import java.util.*
 

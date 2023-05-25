@@ -2,10 +2,9 @@ package com.microservicio.home.supplier_invitation.adaptador
 
 import com.microservicio.home.supplier.adaptador.consulta.DaoSupplier
 import com.microservicio.home.supplier_invitation.entidad.EntidadSupplierInvitation
-import com.microservicio.home.supplier_invitation.modelo.DtoRespuestaSupplierInvitation
+import com.microservicio.home.supplier_invitation.modelo.Dto.DtoRespuestaSupplierInvitation
 import com.microservicio.home.supplier_invitation.modelo.SupplierInvitation
 import org.springframework.stereotype.Component
-import kotlin.streams.toList
 
 @Component
 class MapperSupplierInvitation(
@@ -20,14 +19,10 @@ class MapperSupplierInvitation(
     }
 
     fun convertirListaDominioAEntidad(supplierInvitation: List<SupplierInvitation>): List<EntidadSupplierInvitation>{
-        val listaEntidad = ArrayList<EntidadSupplierInvitation>()
-        supplierInvitation.forEach { supplier ->
-            listaEntidad.add(crearEntidad(supplier))
-        }
-        return listaEntidad
+        return supplierInvitation.stream().map(this::crearEntidad).toList()
     }
 
-    fun convertirRespuestaListaSupplierInvitation(entidad: EntidadSupplierInvitation) : DtoRespuestaSupplierInvitation{
+    fun convertirRespuestaListaSupplierInvitation(entidad: EntidadSupplierInvitation) : DtoRespuestaSupplierInvitation {
         return DtoRespuestaSupplierInvitation(entidad.supplier!!.id!!,entidad.supplier!!.name!!,entidad.commerceCellPhone!!)
     }
     
