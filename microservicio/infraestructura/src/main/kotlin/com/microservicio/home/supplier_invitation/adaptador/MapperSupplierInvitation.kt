@@ -13,7 +13,7 @@ class MapperSupplierInvitation(
 
     fun crearEntidad(supplierInvitation : SupplierInvitation): EntidadSupplierInvitation {
         return EntidadSupplierInvitation(
-            this.daoSupplier.consultarPorId(supplierInvitation.supplierId),
+            this.daoSupplier.consultarPorId(supplierInvitation.supplier),
             supplierInvitation.commerceCellPhone,
             supplierInvitation.entryDate  )
     }

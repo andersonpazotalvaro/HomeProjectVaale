@@ -19,6 +19,7 @@ dependencies {
 	testImplementation project.ext.springbootstartertest
 	implementation project.ext.kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+	implementation project(':comun:comun-dominio')
 }
 
 tasks.withType(KotlinCompile) {

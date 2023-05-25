@@ -4,6 +4,8 @@ import com.microservicio.home.supplier_invitation.comando.manejador.ManejadorSup
 import com.microservicio.home.supplier_invitation.consulta.ConsultaTodosSupplierInvitation
 import com.microservicio.home.supplier_invitation.modelo.Dto.DtoRespuestaConsultar
 import com.microservicio.home.supplier_invitation.modelo.Dto.DtoRespuestaGuardar
+import error.ExcepcionErrorAlGuardar
+import error.ExcepcionSupplierInexistente
 import org.apache.commons.io.FileUtils
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
@@ -41,7 +43,7 @@ class ControladorSupplierInvitation (
         } catch (e: Exception) {
             this.manejadorSupplierInvitation.deleteFile(root.resolve(file.originalFilename).toString())
             FileUtils.cleanDirectory(root.toFile())
-            return ResponseEntity(DtoRespuestaGuardar(HttpStatus.NOT_FOUND.value(),e.message,null),HttpStatus.NOT_FOUND)
+            throw ExcepcionErrorAlGuardar(String.format(e.message!!))
         }
 
     }
@@ -51,7 +53,7 @@ class ControladorSupplierInvitation (
         try {
             return ResponseEntity(this.consultaTodosSupplierInvitation.consultarSupplierInvitation(HttpStatus.OK.value(),""),HttpStatus.OK)
         }catch (e: Exception){
-            return ResponseEntity(this.consultaTodosSupplierInvitation.consultarSupplierInvitation(HttpStatus.NOT_FOUND.value(),e.message),HttpStatus.NOT_FOUND)
+            throw ExcepcionSupplierInexistente(String.format("Error al intentar listar"))
         }
 
     }
