@@ -19,7 +19,12 @@ class MapperSupplierInvitation(
     }
 
     fun convertirListaDominioAEntidad(supplierInvitation: List<SupplierInvitation>): List<EntidadSupplierInvitation>{
-        return supplierInvitation.stream().map(this::crearEntidad).toList()
+        //return supplierInvitation.stream().map(this::crearEntidad).toList()
+        val listaEntidad = ArrayList<EntidadSupplierInvitation>()
+        supplierInvitation.forEach { supplier ->
+            listaEntidad.add(crearEntidad(supplier))
+        }
+        return listaEntidad
     }
 
     fun convertirRespuestaListaSupplierInvitation(entidad: EntidadSupplierInvitation) : DtoRespuestaSupplierInvitation {
@@ -27,6 +32,11 @@ class MapperSupplierInvitation(
     }
     
     fun crearListaDtoRespuestaSupplierInvitation(listEntidad: List<EntidadSupplierInvitation>) : List<DtoRespuestaSupplierInvitation>{
-       return listEntidad.stream().map(this::convertirRespuestaListaSupplierInvitation).toList()
+       //return listEntidad.stream().map(this::convertirRespuestaListaSupplierInvitation).toList()
+        val listaDto = ArrayList<DtoRespuestaSupplierInvitation>()
+        listEntidad.forEach { dtoRespuesta ->
+            listaDto.add(convertirRespuestaListaSupplierInvitation(dtoRespuesta))
+        }
+        return listaDto
     }
 }
